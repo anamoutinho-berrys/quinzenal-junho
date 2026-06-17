@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berry's Brasil — Reunião de Tráfego</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+--navy: #0B2474;
+--blue: #1B5EEA;
+--blue-l: #EBF3FF;
+--sky: #4DA3FF;
+--green: #16A34A;
+--green-l: #DCFCE7;
+--red: #DC2626;
+--red-l: #FEE2E2;
+--amber: #D97706;
+--amber-l: #FEF3C7;
+--gray: #64748B;
+--gray-l: #F1F5F9;
+--border: #E2E8F0;
+--white: #FFFFFF;
+--bg: #F0F4FB;
+--pink: #E91E8C;
+}
+* { box-sizing:border-box; margin:0; padding:0 }
+body {
+font-family: 'Plus Jakarta Sans', sans-serif;
+background: var(--bg);
+color: var(--navy);
+min-height: 100vh;
+}
+
+/* ── HEADER ───────────────────────────────────────────── */
+.header {
+background: linear-gradient(135deg, #1B5EEA 0%, #0B2474 100%);
+padding: 28px 40px;
+display: flex; align-items: center; justify-content: space-between;
+}
+.h-brand { display:flex; align-items:center; gap:16px }
+.h-logo {
+width:52px; height:52px; border-radius:16px;
+background:rgba(255,255,255,.15); border:2px solid rgba(255,255,255,.3);
+display:flex; align-items:center; justify-content:center;
+font-size:24px; font-weight:900; color:#fff;
+}
+.h-title { font-size:22px; font-weight:900; color:#fff; letter-spacing:-.02em }
+.h-sub { font-size:13px; color:rgba(255,255,255,.6); margin-top:3px }
+.h-right { text-align:right }
+.h-date { font-size:14px; font-weight:700; color:rgba(255,255,255,.9) }
+.h-team { font-size:12px; color:rgba(255,255,255,.5); margin-top:3px }
+
+/* ── SCORE CARDS ──────────────────────────────────────── */
+.scores {
+display: grid;
+grid-template-columns: repeat(5,1fr);
+gap: 16px;
+padding: 28px 40px 0;
+}
+.sc {
+background: var(--white);
+border-radius: 18px;
+border: 1px solid var(--border);
+padding: 20px 22px;
+box-shadow: 0 2px 12px rgba(11,36,116,.06);
+position: relative;
+overflow: hidden;
+transition: transform .2s, box-shadow .2s;
+}
+.sc:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(11,36,116,.12) }
+.sc::before {
+content:'';
+position:absolute; top:0; left:0; right:0; height:4px;
+border-radius:18px 18px 0 0;
+}
+.sc.blue::before { background:var(--blue) }
+.sc.green::before { background:var(--green) }
+.sc.amber::before { background:var(--amber) }
+.sc.red::before { background:var(--red) }
+.sc.pink::before { background:var(--pink) }
+.sc-ico { font-size:28px; margin-bottom:10px }
+.sc-val { font-size:36px; font-weight:900; letter-spacing:-.03em; line-height:1 }
+.sc.blue .sc-val { color:var(--blue) }
+.sc.green .sc-val { color:var(--green) }
+.sc.amber .sc-val { color:var(--amber) }
+.sc.red .sc-val { color:var(--red) }
+.sc.pink .sc-val { color:var(--pink) }
+.sc-lbl { font-size:12px; font-weight:700; color:var(--navy); margin-top:6px }
+.sc-sub { font-size:11px; color:var(--gray); margin-top:3px }
+.sc-ring {
+position:absolute; right:16px; bottom:14px;
+width:48px; height:48px; border-radius:50%;
+display:flex; align-items:center; justify-content:center;
+font-size:10px; font-weight:800; color:#fff;
+}
+.sc.blue .sc-ring { background:var(--blue) }
+.sc.green .sc-ring { background:var(--green) }
+.sc.amber .sc-ring { background:var(--amber) }
+.sc.red .sc-ring { background:var(--red) }
+.sc.pink .sc-ring { background:var(--pink) }
+
+/* ── ALERTA PENDÊNCIA ─────────────────────────────────── */
+.alert-bar {
+margin: 20px 40px 0;
+background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+border: 1.5px solid #F59E0B;
+border-radius: 14px;
+padding: 14px 20px;
+display: flex; align-items: center; gap: 14px;
+}
+.alert-ico { font-size:24px; flex-shrink:0 }
+.alert-txt { flex:1 }
+.alert-title { font-size:14px; font-weight:800; color:#92400E }
+.alert-desc { font-size:12px; color:#B45309; margin-top:2px }
+.alert-val { font-size:22px; font-weight:900; color:#D97706; white-space:nowrap }
+
+/* ── FILTROS ──────────────────────────────────────────── */
+.filter-bar {
+display:flex; gap:8px; padding:20px 40px 0; flex-wrap:wrap; align-items:center;
+}
+.filter-label { font-size:12px; font-weight:700; color:var(--gray); margin-right:4px }
+.fbtn {
+padding:6px 16px; border-radius:20px;
+border:1.5px solid var(--border); background:var(--white);
+color:var(--gray); font-size:12px; font-weight:600;
+cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif;
+transition:all .15s; display:flex; align-items:center; gap:5px;
+}
+.fbtn:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-l) }
+.fbtn.act { border-color:var(--navy); background:var(--navy); color:#fff }
+.fbtn .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0 }
+
+/* ── GRID DE CARDS ────────────────────────────────────── */
+.grid-wrap { padding:20px 40px 40px }
+.grid-section-title {
+font-size:11px; font-weight:800; color:var(--gray);
+text-transform:uppercase; letter-spacing:.08em;
+margin-bottom:12px; display:flex; align-items:center; gap:8px;
+}
+.grid-section-title::after {
+content:''; flex:1; height:1px; background:var(--border);
+}
+.grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px }
+
+/* CARD DE UNIDADE */
+.ucard {
+background:var(--white); border-radius:16px;
+border:1.5px solid var(--border);
+box-shadow:0 1px 8px rgba(11,36,116,.05);
+overflow:hidden; transition:transform .2s, box-shadow .2s;
+cursor:default;
+}
+.ucard:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(11,36,116,.12) }
+.ucard.pendente { border-color:#F59E0B; background:#FFFBEB }
+.ucard.sem { border-color:var(--border); background:var(--gray-l); opacity:.7 }
+
+.ucard-head {
+padding:14px 16px 10px;
+display:flex; align-items:flex-start; justify-content:space-between; gap:8px;
+}
+.ucard-nome {
+font-size:13px; font-weight:800; color:var(--navy); line-height:1.3;
+flex:1;
+}
+.ucard.sem .ucard-nome { color:var(--gray) }
+.ucard-status {
+flex-shrink:0;
+width:28px; height:28px; border-radius:50%;
+display:flex; align-items:center; justify-content:center;
+font-size:13px;
+}
+.ucard-status.ok { background:var(--green-l) }
+.ucard-status.pend { background:var(--amber-l) }
+.ucard-status.sem { background:var(--red-l) }
+
+.ucard-invest {
+padding:0 16px 10px;
+font-size:11px; font-weight:700;
+display:flex; align-items:center; gap:5px;
+}
+.invest-val { font-size:14px; font-weight:900; color:var(--amber) }
+.invest-pend-label {
+font-size:10px; font-weight:700; color:var(--amber);
+background:var(--amber-l); border-radius:10px; padding:1px 7px;
+}
+
+/* CAMPANHAS DENTRO DO CARD */
+.ucard-camps { padding:0 16px 14px; display:flex; flex-direction:column; gap:5px }
+.camp-row {
+display:flex; align-items:center; gap:7px;
+padding:5px 8px; border-radius:8px;
+font-size:11px; font-weight:600;
+}
+.camp-row.ok { background:var(--green-l); color:var(--green) }
+.camp-row.pend { background:var(--amber-l); color:#B45309 }
+.camp-row.no { background:var(--gray-l); color:var(--gray); text-decoration:line-through; opacity:.6 }
+.camp-row.note { background:var(--blue-l); color:var(--blue) }
+.camp-ico { font-size:13px; flex-shrink:0 }
+.camp-nome { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.camp-tag { font-size:9px; font-weight:800; padding:1px 6px; border-radius:8px; background:rgba(0,0,0,.08); flex-shrink:0 }
+
+/* NENHUMA CAMPANHA */
+.ucard-nocamps {
+padding:8px 16px 14px;
+font-size:11px; color:var(--gray); font-weight:600;
+display:flex; align-items:center; gap:6px;
+}
+
+/* ── MELHORES ANÚNCIOS ────────────────────────────────── */
+.best-ads {
+border-top: 1px solid var(--border);
+padding: 10px 16px 14px;
+}
+.best-ads-title {
+font-size: 10px; font-weight: 800; color: var(--amber);
+text-transform: uppercase; letter-spacing: .06em;
+margin-bottom: 7px; display: flex; align-items: center; gap: 5px;
+}
+.best-ads-period {
+font-size: 9px; font-weight: 600; color: var(--gray);
+background: var(--gray-l); border-radius: 8px; padding: 1px 6px;
+margin-left: auto;
+}
+.best-ad-row {
+display: flex; align-items: center; gap: 6px;
+padding: 5px 7px; border-radius: 7px; margin-bottom: 3px;
+background: #FFFBEB; border: 1px solid #FDE68A;
+}
+.best-ad-pos {
+font-size: 10px; font-weight: 900; color: var(--amber);
+width: 14px; flex-shrink: 0; text-align: center;
+}
+.best-ad-name {
+flex: 1; font-size: 10px; font-weight: 600; color: var(--navy);
+white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.best-ad-metric {
+font-size: 10px; font-weight: 800; color: var(--green);
+white-space: nowrap; flex-shrink: 0;
+}
+.best-ad-cpr {
+font-size: 9px; color: var(--gray); white-space: nowrap;
+background: var(--gray-l); border-radius: 6px; padding: 1px 5px;
+flex-shrink: 0;
+}
+
+/* ── RODAPÉ ───────────────────────────────────────────── */
+.footer {
+background:var(--navy);
+padding:20px 40px;
+display:flex; align-items:center; justify-content:space-between;
+flex-wrap:wrap; gap:12px;
+}
+.footer-note { font-size:12px; color:rgba(255,255,255,.5) }
+.footer-brand { font-size:13px; font-weight:800; color:rgba(255,255,255,.7) }
+
+/* ── HIDDEN ───────────────────────────────────────────── */
+.ucard.hidden { display:none }
+
+@media print {
+.filter-bar, .fbtn { display:none }
+.ucard.hidden { display:block !important }
+body { background:white }
+.scores { grid-template-columns:repeat(5,1fr) }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div class="h-brand">
+<div class="h-logo">B</div>
+<div>
+<div class="h-title">Berry's Brasil — Campanhas Ativas</div>
+<div class="h-sub">Visão por unidade · Reunião de Tráfego</div>
+</div>
+</div>
+<div class="h-right">
+<div class="h-date" id="dataHoje"></div>
+<div class="h-team">Time de Marketing · Gestão Central</div>
+</div>
+</div>
+
+<!-- SCORE CARDS -->
+<div class="scores">
+<div class="sc blue">
+<div class="sc-ico">🏪</div>
+<div class="sc-val">23</div>
+<div class="sc-lbl">Unidades na rede</div>
+<div class="sc-sub">Berry's Brasil</div>
+<div class="sc-ring">100%</div>
+</div>
+<div class="sc green">
+<div class="sc-ico">✅</div>
+<div class="sc-val">21</div>
+<div class="sc-lbl">Rodando campanhas</div>
+<div class="sc-sub">ao menos 1 campanha ativa</div>
+<div class="sc-ring">91%</div>
+</div>
+<div class="sc red">
+<div class="sc-ico">🔴</div>
+<div class="sc-val">2</div>
+<div class="sc-lbl">Sem campanhas</div>
+<div class="sc-sub">nenhuma campanha ativa</div>
+<div class="sc-ring">9%</div>
+</div>
+<div class="sc amber">
+<div class="sc-ico">⏳</div>
+<div class="sc-val">9</div>
+<div class="sc-lbl">Sem resposta forms</div>
+<div class="sc-sub">não confirmaram temáticas</div>
+<div class="sc-ring">39%</div>
+</div>
+<div class="sc pink">
+<div class="sc-ico">💳</div>
+<div class="sc-val">4</div>
+<div class="sc-lbl">Pgto. pendente Meta</div>
+<div class="sc-sub">campanhas bloqueadas</div>
+<div class="sc-ring">17%</div>
+</div>
+</div>
+
+<!-- ALERTA PENDÊNCIA -->
+<div class="alert-bar">
+<div class="alert-ico">⚠️</div>
+<div class="alert-txt">
+<div class="alert-title">Pagamento pendente no Meta — regularizar com urgência</div>
+<div class="alert-desc">Balneário · Lauro de Freitas · Águas Claras · Porto Seguro — campanhas podem ser interrompidas a qualquer momento</div>
+</div>
+<div class="alert-val">4 lojas</div>
+</div>
+
+<!-- FILTROS -->
+<div class="filter-bar">
+<span class="filter-label">Filtrar:</span>
+<button class="fbtn act" onclick="filtrar(this,'todas')"><span class="dot" style="background:#94A3B8"></span> Todas (24)</button>
+<button class="fbtn" onclick="filtrar(this,'ativa')"><span class="dot" style="background:var(--green)"></span> Ativas (21)</button>
+<button class="fbtn" onclick="filtrar(this,'pendente')"><span class="dot" style="background:var(--amber)"></span> Pgto. pendente (4)</button>
+<button class="fbtn" onclick="filtrar(this,'semresposta')"><span class="dot" style="background:#F59E0B"></span> Sem resposta forms (9)</button>
+<button class="fbtn" onclick="filtrar(this,'sem')"><span class="dot" style="background:var(--red)"></span> Sem campanhas (2)</button>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap">
+
+<!-- RODANDO -->
+<div class="grid-section-title" id="sec-ativas">✅ Rodando campanhas agora</div>
+<div class="grid" id="grid-ativas">
+
+<!-- Berry's MOC Avenida -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's MOC Avenida</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">💕</span><span class="camp-nome">Dia dos Namorados</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">⚽</span><span class="camp-nome">Copa do Mundo</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Influenciador + Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row note"><span class="camp-ico">📅</span><span class="camp-nome">Sabor Junino — lança dia 09</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Jogos Copa</span>
+<span class="best-ad-metric">17 compras</span>
+<span class="best-ad-cpr">ROAS 5,83</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Post - inverno completo</span>
+<span class="best-ad-metric">1.046 visitas</span>
+<span class="best-ad-cpr">R$0,12/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">ADS Evento Carrinho</span>
+<span class="best-ad-metric">49 conversas</span>
+<span class="best-ad-cpr">4 compras</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Bocaiuva -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Bocaiuva</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">⚽</span><span class="camp-nome">Copa do Mundo</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row no"><span class="camp-ico">💕</span><span class="camp-nome">Dia dos Namorados</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Festival Inverno - VD S'mores</span>
+<span class="best-ad-metric">38.455 reach</span>
+<span class="best-ad-cpr">R$6,37/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Festival Inverno - S'mores</span>
+<span class="best-ad-metric">4.518 reach</span>
+<span class="best-ad-cpr">R$2,70/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Post - Sabor pé de moça</span>
+<span class="best-ad-metric">20 visitas</span>
+<span class="best-ad-cpr">R$0,60/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Recife -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Recife</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">💕</span><span class="camp-nome">Dia dos Namorados</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">18 mai–16 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
+<span class="best-ad-metric">111.075 reach</span>
+<span class="best-ad-cpr">R$1,99/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">iFood - Berry's no Precinho</span>
+<span class="best-ad-metric">5.188 cliques</span>
+<span class="best-ad-cpr">R$0,091/clique</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Post - sopinha</span>
+<span class="best-ad-metric">284 visitas</span>
+<span class="best-ad-cpr">R$0,203/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Luiz Eduardo -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Luiz Eduardo Magalhães</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">💕</span><span class="camp-nome">Dia dos Namorados</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Conhecer a Berry's - vídeo</span>
+<span class="best-ad-metric">697 visitas</span>
+<span class="best-ad-cpr">R$0,271/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Festival de Inverno</span>
+<span class="best-ad-metric">32.191 reach</span>
+<span class="best-ad-cpr">R$2,80/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Reels - Influenciadora</span>
+<span class="best-ad-metric">157 visitas</span>
+<span class="best-ad-cpr">R$0,295/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Campinas -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Campinas</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Lançamento</span>
+<span class="best-ad-metric">1.187 visitas</span>
+<span class="best-ad-cpr">R$0,296/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
+<span class="best-ad-metric">23.255 reach</span>
+<span class="best-ad-cpr">R$1,65/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Dinheirinho</span>
+<span class="best-ad-metric">59 visitas</span>
+<span class="best-ad-cpr">R$0,204/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Pirapora -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Pirapora</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">VIDEO POXA LACTOSE</span>
+<span class="best-ad-metric">3.760 visitas</span>
+<span class="best-ad-cpr">R$0,080/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
+<span class="best-ad-metric">39.086 reach</span>
+<span class="best-ad-cpr">R$3,32/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Post - Quando o sorvete é Berry's</span>
+<span class="best-ad-metric">210 visitas</span>
+<span class="best-ad-cpr">R$0,362/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Conquista -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Conquista</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Festival de Inverno</span>
+<span class="best-ad-metric">63.132 reach</span>
+<span class="best-ad-cpr">R$2,73/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Troca figurinha</span>
+<span class="best-ad-metric">37.208 reach</span>
+<span class="best-ad-cpr">R$1,40/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Sabor novo</span>
+<span class="best-ad-metric">291 visitas</span>
+<span class="best-ad-cpr">R$0,198/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Savassi -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Savassi</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
+<span class="best-ad-metric">121.227 reach</span>
+<span class="best-ad-cpr">R$1,93/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Influenciador - Descobrindo BH</span>
+<span class="best-ad-metric">686 visitas</span>
+<span class="best-ad-cpr">R$0,096/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Jogos Copa</span>
+<span class="best-ad-metric">526 cliques</span>
+<span class="best-ad-cpr">R$0,41/clique</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Uberaba -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Uberaba</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
+<span class="best-ad-metric">64.028 reach</span>
+<span class="best-ad-cpr">R$3,05/reach</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Januária -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Januária</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">18 mai–16 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Post - chocolate quente</span>
+<span class="best-ad-metric">373 visitas</span>
+<span class="best-ad-cpr">R$0,29/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
+<span class="best-ad-metric">17.606 reach</span>
+<span class="best-ad-cpr">R$3,72/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Reels - sopinha</span>
+<span class="best-ad-metric">79 visitas</span>
+<span class="best-ad-cpr">R$0,28/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Aracaju -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Aracaju</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Novo anúncio de Reconhecimento</span>
+<span class="best-ad-metric">38.811 reach</span>
+<span class="best-ad-cpr">R$2,52/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Post - Novos sabores chegaram</span>
+<span class="best-ad-metric">189 visitas</span>
+<span class="best-ad-cpr">R$0,86/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Guanambi — ativa + pendente -->
+<div class="ucard pendente" data-status="ativa semresposta" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Guanambi</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 2.000/mês</span>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">⚽</span><span class="camp-nome">Copa do Mundo</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Festival/Namorados — sem resposta</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">3D</span>
+<span class="best-ad-metric">3.092 visitas</span>
+<span class="best-ad-cpr">R$0,056/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Reels - som na chapa</span>
+<span class="best-ad-metric">812 visitas</span>
+<span class="best-ad-cpr">R$0,11/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Figurinhas da Copa</span>
+<span class="best-ad-metric">48.485 reach</span>
+<span class="best-ad-cpr">R$4,38/reach</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Balneário — ativa + pendente -->
+<div class="ucard pendente" data-status="ativa" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Balneário</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 1.000/mês</span>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">💕</span><span class="camp-nome">Dia dos Namorados</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
+<span class="best-ad-metric">47.254 reach</span>
+<span class="best-ad-cpr">R$1,84/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Post - o frio chegou</span>
+<span class="best-ad-metric">199 visitas</span>
+<span class="best-ad-cpr">R$0,264/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Post - Inverno completo</span>
+<span class="best-ad-metric">107 visitas</span>
+<span class="best-ad-cpr">R$0,232/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Salvador -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Salvador</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">💕</span><span class="camp-nome">Dia dos Namorados</span><span class="camp-tag">R$8/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Festival de Inverno — sem resposta forms</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">VIDEO EQUILIBRIO</span>
+<span class="best-ad-metric">1.693 visitas</span>
+<span class="best-ad-cpr">R$0,112/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Jogos Copa</span>
+<span class="best-ad-metric">510 cliques</span>
+<span class="best-ad-cpr">R$0,33/clique</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Criativos Gerais - iFood</span>
+<span class="best-ad-metric">125 cliques</span>
+<span class="best-ad-cpr">R$0,34/clique</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's MOC Centro -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's MOC Centro</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Influenciador</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Temáticas — sem resposta forms</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Influenciador - Lima</span>
+<span class="best-ad-metric">40.208 views</span>
+<span class="best-ad-cpr">R$0,011/view</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Influenciador - Gui</span>
+<span class="best-ad-metric">6.874 views</span>
+<span class="best-ad-cpr">R$0,016/view</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Influenciador - PodMoss</span>
+<span class="best-ad-metric">7.223 views</span>
+<span class="best-ad-cpr">R$0,018/view</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Maceió -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Maceió</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Temáticas — sem resposta forms</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Sabores Juninos - Dinâmico</span>
+<span class="best-ad-metric">21.706 reach</span>
+<span class="best-ad-cpr">R$1,32/reach</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">O melhor sorvete artesanal</span>
+<span class="best-ad-metric">754 visitas</span>
+<span class="best-ad-cpr">R$0,24/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Post - bolo de cenoura</span>
+<span class="best-ad-metric">160 visitas</span>
+<span class="best-ad-cpr">R$0,28/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Contagem -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Contagem</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Influenciador + Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Festival/Namorados — sem resposta forms</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">CURTE BH</span>
+<span class="best-ad-metric">31.763 views</span>
+<span class="best-ad-cpr">R$0,013/view</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Reels - cremosidade</span>
+<span class="best-ad-metric">152 visitas</span>
+<span class="best-ad-cpr">R$0,163/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Reels - brownie na chapa</span>
+<span class="best-ad-metric">581 visitas</span>
+<span class="best-ad-cpr">R$0,227/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's Salinas -->
+<div class="ucard pendente" data-status="ativa semresposta" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Salinas</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 1.000/mês</span>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Influenciador</span><span class="camp-tag">R$10/d</span></div>
+<div class="camp-row pend"><span class="camp-ico">⏳</span><span class="camp-nome">Temáticas — sem resposta forms</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">3D Salinas</span>
+<span class="best-ad-metric">2.451 visitas</span>
+<span class="best-ad-cpr">R$0,066/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Influenciador - Lucas Ramaldes</span>
+<span class="best-ad-metric">528 visitas</span>
+<span class="best-ad-cpr">R$0,225/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Salinas Bê</span>
+<span class="best-ad-metric">512 visitas</span>
+<span class="best-ad-cpr">R$0,292/res.</span>
+</div>
+</div>
+</div>
+
+<!-- Berry's MOC Shopping -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's MOC Shopping</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row note"><span class="camp-ico">🚀</span><span class="camp-nome">Campanhas subindo hoje · 17/06</span></div>
+</div>
+</div>
+
+<!-- Berry's Anápolis -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Anápolis</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row note"><span class="camp-ico">🚀</span><span class="camp-nome">Campanhas subindo hoje · 17/06</span></div>
+</div>
+</div>
+
+<!-- Berry's Janaúba -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Janaúba</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row note"><span class="camp-ico">🚀</span><span class="camp-nome">Campanhas subindo hoje · 17/06</span></div>
+</div>
+</div>
+
+<!-- Berry's Indaiatuba -->
+<div class="ucard" data-status="ativa" data-pendente="false">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Indaiatuba</div>
+<div class="ucard-status ok">✅</div>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Vídeo</span><span class="camp-tag">R$30/d</span></div>
+<div class="camp-row ok"><span class="camp-ico">🎯</span><span class="camp-nome">Captação de leads · Desconto 1ª compra</span><span class="camp-tag">R$14/d</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">VDO - Investimento que vale a pena</span>
+<span class="best-ad-metric">1.017 visitas</span>
+<span class="best-ad-cpr">R$0,261/res.</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Estático - Desconto 1ª compra [A]</span>
+<span class="best-ad-metric">58 leads</span>
+<span class="best-ad-cpr">R$2,17/lead</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Estático - Desconto 1ª compra [B]</span>
+<span class="best-ad-metric">46 leads</span>
+<span class="best-ad-cpr">R$2,73/lead</span>
+</div>
+</div>
+</div>
+
+</div><!-- /grid ativas -->
+
+<!-- ATENÇÃO: SEM RESPOSTA / PENDENTES -->
+<div class="grid-section-title" id="sec-atencao">⚠️ Requer atenção — pagamento pendente ou sem resposta</div>
+<div class="grid" id="grid-atencao">
+
+<!-- Berry's Lauro de Freitas -->
+<div class="ucard pendente" data-status="semresposta" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Lauro de Freitas</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 1.000/mês</span>
+</div>
+<div class="ucard-nocamps">⏳ Não respondeu o forms de temáticas</div>
+</div>
+
+</div><!-- /grid atencao -->
+
+<!-- SEM CAMPANHAS -->
+<div class="grid-section-title" id="sec-sem">🔴 Sem campanhas ativas</div>
+<div class="grid" id="grid-sem">
+
+
+<div class="ucard pendente" data-status="ativa" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Feira de Santana</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 700/mês</span>
+</div>
+<div class="ucard-camps">
+<div class="camp-row ok"><span class="camp-ico">🎥</span><span class="camp-nome">Visite a Loja · Vídeo</span><span class="camp-tag">ativo</span></div>
+</div>
+<div class="best-ads">
+<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
+<div class="best-ad-row">
+<span class="best-ad-pos">1</span>
+<span class="best-ad-name">Visite a Loja [principal]</span>
+<span class="best-ad-metric">3.107 views</span>
+<span class="best-ad-cpr">R$0,048/view</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">2</span>
+<span class="best-ad-name">Visite a Loja [seg. A]</span>
+<span class="best-ad-metric">230 views</span>
+<span class="best-ad-cpr">R$0,041/view</span>
+</div>
+<div class="best-ad-row">
+<span class="best-ad-pos">3</span>
+<span class="best-ad-name">Visite a Loja [seg. B]</span>
+<span class="best-ad-metric">116 views</span>
+<span class="best-ad-cpr">R$0,038/view</span>
+</div>
+</div>
+</div>
+
+<div class="ucard sem pendente" data-status="sem" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Águas Claras</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 600/mês</span>
+</div>
+<div class="ucard-nocamps">Nenhuma campanha ativa no momento</div>
+</div>
+
+<div class="ucard sem pendente" data-status="sem" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Porto Seguro</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 600/mês</span>
+</div>
+<div class="ucard-nocamps">Não tem campanha configurada</div>
+</div>
+
+</div><!-- /grid sem -->
+</div><!-- /grid-wrap -->
+
+<!-- FOOTER -->
+<div class="footer">
+<div class="footer-note">Dashboard gerado para reunião interna · Dados de 1–17 jun/2026</div>
+<div class="footer-brand">Berry's Brasil · Time de Marketing</div>
+</div>
+
+<script>
+// Data
+const d = new Date()
+document.getElementById('dataHoje').textContent =
+d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})
+
+// Filtros
+function filtrar(btn, tipo) {
+document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('act'))
+btn.classList.add('act')
+
+const cards = document.querySelectorAll('.ucard')
+
+cards.forEach(c => {
+const status = c.dataset.status || ''
+const pendente = c.dataset.pendente === 'true'
+
+let show = false
+if (tipo === 'todas') show = true
+else if (tipo === 'ativa') show = status.includes('ativa')
+else if (tipo === 'pendente') show = pendente
+else if (tipo === 'semresposta') show = status.includes('semresposta')
+else if (tipo === 'sem') show = status.includes('sem') && !status.includes('ativa')
+
+c.classList.toggle('hidden', !show)
+})
+
+// Mostra/esconde títulos de seção
+const secAtivas = document.getElementById('sec-ativas')
+const gridAtivas = document.getElementById('grid-ativas')
+const secAtencao = document.getElementById('sec-atencao')
+const gridAtencao= document.getElementById('grid-atencao')
+const secSem = document.getElementById('sec-sem')
+const gridSem = document.getElementById('grid-sem')
+
+const anyVisible = g => [...g.querySelectorAll('.ucard')].some(c => !c.classList.contains('hidden'))
+
+secAtivas.style.display = anyVisible(gridAtivas) ? '' : 'none'
+secAtencao.style.display = anyVisible(gridAtencao) ? '' : 'none'
+secSem.style.display = anyVisible(gridSem) ? '' : 'none'
+}
+</script>
+</body>
+</html>
