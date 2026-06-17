@@ -703,14 +703,13 @@ body { background:white }
 </div>
 </div>
 
-<!-- Berry's Guanambi — ativa + pendente -->
-<div class="ucard pendente" data-status="ativa semresposta" data-pendente="true">
+<!-- Berry's Guanambi -->
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
 <div class="ucard-head">
 <div class="ucard-nome">Berry's Guanambi</div>
-<div class="ucard-status pend">⚠️</div>
+<div class="ucard-status ok">✅</div>
 </div>
 <div class="ucard-invest">
-<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
 <span class="invest-val">R$ 2.000/mês</span>
 </div>
 <div class="ucard-camps">
@@ -737,44 +736,6 @@ body { background:white }
 <span class="best-ad-name">Figurinhas da Copa</span>
 <span class="best-ad-metric">48.485 reach</span>
 <span class="best-ad-cpr">R$4,38/reach</span>
-</div>
-</div>
-</div>
-
-<!-- Berry's Balneário — ativa + pendente -->
-<div class="ucard pendente" data-status="ativa" data-pendente="true">
-<div class="ucard-head">
-<div class="ucard-nome">Berry's Balneário</div>
-<div class="ucard-status pend">⚠️</div>
-</div>
-<div class="ucard-invest">
-<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
-<span class="invest-val">R$ 1.000/mês</span>
-</div>
-<div class="ucard-camps">
-<div class="camp-row ok"><span class="camp-ico">🎶</span><span class="camp-nome">Festival de Inverno</span><span class="camp-tag">R$8/d</span></div>
-<div class="camp-row ok"><span class="camp-ico">💕</span><span class="camp-nome">Dia dos Namorados</span><span class="camp-tag">R$8/d</span></div>
-<div class="camp-row ok"><span class="camp-ico">👁</span><span class="camp-nome">Visitas ao perfil · Últimos Posts</span><span class="camp-tag">R$10/d</span></div>
-</div>
-<div class="best-ads">
-<div class="best-ads-title">🏆 Melhores anúncios <span class="best-ads-period">1–17 jun/26</span></div>
-<div class="best-ad-row">
-<span class="best-ad-pos">1</span>
-<span class="best-ad-name">Festival de Inverno - Dinâmico</span>
-<span class="best-ad-metric">47.254 reach</span>
-<span class="best-ad-cpr">R$1,84/reach</span>
-</div>
-<div class="best-ad-row">
-<span class="best-ad-pos">2</span>
-<span class="best-ad-name">Post - o frio chegou</span>
-<span class="best-ad-metric">199 visitas</span>
-<span class="best-ad-cpr">R$0,264/res.</span>
-</div>
-<div class="best-ad-row">
-<span class="best-ad-pos">3</span>
-<span class="best-ad-name">Post - Inverno completo</span>
-<span class="best-ad-metric">107 visitas</span>
-<span class="best-ad-cpr">R$0,232/res.</span>
 </div>
 </div>
 </div>
@@ -912,13 +873,12 @@ body { background:white }
 </div>
 
 <!-- Berry's Salinas -->
-<div class="ucard pendente" data-status="ativa semresposta" data-pendente="true">
+<div class="ucard" data-status="ativa semresposta" data-pendente="false">
 <div class="ucard-head">
 <div class="ucard-nome">Berry's Salinas</div>
-<div class="ucard-status pend">⚠️</div>
+<div class="ucard-status ok">✅</div>
 </div>
 <div class="ucard-invest">
-<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
 <span class="invest-val">R$ 1.000/mês</span>
 </div>
 <div class="ucard-camps">
@@ -1016,12 +976,24 @@ body { background:white }
 
 </div><!-- /grid ativas -->
 
-<!-- ATENÇÃO: SEM RESPOSTA / PENDENTES -->
-<div class="grid-section-title" id="sec-atencao">⚠️ Requer atenção — pagamento pendente ou sem resposta</div>
-<div class="grid" id="grid-atencao">
+<!-- PAGAMENTO PENDENTE -->
+<div class="grid-section-title" id="sec-pend">💳 Pagamento pendente — regularizar com urgência</div>
+<div class="grid" id="grid-pend">
+
+<!-- Berry's Balneário -->
+<div class="ucard pendente" data-status="pendente" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Balneário</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 1.000/mês</span>
+</div>
+</div>
 
 <!-- Berry's Lauro de Freitas -->
-<div class="ucard pendente" data-status="semresposta" data-pendente="true">
+<div class="ucard pendente" data-status="pendente" data-pendente="true">
 <div class="ucard-head">
 <div class="ucard-nome">Berry's Lauro de Freitas</div>
 <div class="ucard-status pend">⚠️</div>
@@ -1030,23 +1002,45 @@ body { background:white }
 <span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
 <span class="invest-val">R$ 1.000/mês</span>
 </div>
-<div class="ucard-nocamps">⏳ Não respondeu o forms de temáticas</div>
 </div>
 
-</div><!-- /grid atencao -->
+<!-- Berry's Águas Claras -->
+<div class="ucard pendente" data-status="pendente" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Águas Claras</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 600/mês</span>
+</div>
+</div>
+
+<!-- Berry's Porto Seguro -->
+<div class="ucard pendente" data-status="pendente" data-pendente="true">
+<div class="ucard-head">
+<div class="ucard-nome">Berry's Porto Seguro</div>
+<div class="ucard-status pend">⚠️</div>
+</div>
+<div class="ucard-invest">
+<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
+<span class="invest-val">R$ 600/mês</span>
+</div>
+</div>
+
+</div><!-- /grid pend -->
 
 <!-- SEM CAMPANHAS -->
 <div class="grid-section-title" id="sec-sem">🔴 Sem campanhas ativas</div>
 <div class="grid" id="grid-sem">
 
 
-<div class="ucard pendente" data-status="ativa" data-pendente="true">
+<div class="ucard" data-status="ativa" data-pendente="false">
 <div class="ucard-head">
 <div class="ucard-nome">Berry's Feira de Santana</div>
-<div class="ucard-status pend">⚠️</div>
+<div class="ucard-status ok">✅</div>
 </div>
 <div class="ucard-invest">
-<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
 <span class="invest-val">R$ 700/mês</span>
 </div>
 <div class="ucard-camps">
@@ -1075,29 +1069,6 @@ body { background:white }
 </div>
 </div>
 
-<div class="ucard sem pendente" data-status="sem" data-pendente="true">
-<div class="ucard-head">
-<div class="ucard-nome">Berry's Águas Claras</div>
-<div class="ucard-status pend">⚠️</div>
-</div>
-<div class="ucard-invest">
-<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
-<span class="invest-val">R$ 600/mês</span>
-</div>
-<div class="ucard-nocamps">Nenhuma campanha ativa no momento</div>
-</div>
-
-<div class="ucard sem pendente" data-status="sem" data-pendente="true">
-<div class="ucard-head">
-<div class="ucard-nome">Berry's Porto Seguro</div>
-<div class="ucard-status pend">⚠️</div>
-</div>
-<div class="ucard-invest">
-<span style="font-size:11px;color:var(--gray)">Pgto. pendente:</span>
-<span class="invest-val">R$ 600/mês</span>
-</div>
-<div class="ucard-nocamps">Não tem campanha configurada</div>
-</div>
 
 </div><!-- /grid sem -->
 </div><!-- /grid-wrap -->
@@ -1138,15 +1109,15 @@ c.classList.toggle('hidden', !show)
 // Mostra/esconde títulos de seção
 const secAtivas = document.getElementById('sec-ativas')
 const gridAtivas = document.getElementById('grid-ativas')
-const secAtencao = document.getElementById('sec-atencao')
-const gridAtencao= document.getElementById('grid-atencao')
+const secPend = document.getElementById('sec-pend')
+const gridPend = document.getElementById('grid-pend')
 const secSem = document.getElementById('sec-sem')
 const gridSem = document.getElementById('grid-sem')
 
 const anyVisible = g => [...g.querySelectorAll('.ucard')].some(c => !c.classList.contains('hidden'))
 
 secAtivas.style.display = anyVisible(gridAtivas) ? '' : 'none'
-secAtencao.style.display = anyVisible(gridAtencao) ? '' : 'none'
+secPend.style.display = anyVisible(gridPend) ? '' : 'none'
 secSem.style.display = anyVisible(gridSem) ? '' : 'none'
 }
 </script>
